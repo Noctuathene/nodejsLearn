@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Like, Repository } from 'typeorm'
 import { User } from './../entites/user.entity'
-import { UserDTO } from './dto/user.dto';
+import { hash } from 'bcrypt'
 
 @Injectable()
 export class UsersService {
@@ -21,11 +21,28 @@ export class UsersService {
 
     async create(user : User)
     {
-        await this.usersRepository.save(user);
-    }
+        try
+        {
+            const userToCreate = await this.usersRepository.create(user);
+            userToCreate.password = await hash(user.password, 10);
+            userToCreate.amount = 0;
+            const createdUser = await this.usersRepository.save(userToCreate);
+            return createdUser.id;
+        } 
+        catch (error)
+        {
+            if (error?.code === "ER_DUP_ENTRY") 
+                throw new BadRequestException("Email in using");
+        }
 
+    }
+    
+    async findOneByEmail(email : string) : Promise<User> {
+        return await this.usersRepository.findOne( { email : email});
+    }
+    
     async findOne(id : string): Promise<User> {
-        return this.usersRepository.findOne(id, {
+        return await this.usersRepository.findOne(id, {
             select : ['id', 'username']
         })
     }

@@ -8,7 +8,7 @@ export class User extends BaseEntity {
     username: string;
     @Column({ type: 'varchar', length: 300 })
     password: string;
-    @Column({ type: 'varchar', length: 300 })
+    @Column({ type: 'varchar', length: 300, unique: true })
     email: string;
 
     @OneToMany(() => Transaction, transaction => transaction.correspondent)

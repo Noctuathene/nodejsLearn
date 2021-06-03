@@ -10,12 +10,12 @@ export class UsersController {
         private userService: UsersService) { }
 
     @Post()
-    create(@Body() userDto: CreateUserDto) {
+    async create(@Body() userDto: CreateUserDto) {
         var user = new User();
         user.username = userDto.username;
         user.password = userDto.password;
         user.email = userDto.email;
-        this.userService.create(user);
+        return await this.userService.create(user);
     }
     @Get(':id')
     async findOne(@Param('id') id: string) {
