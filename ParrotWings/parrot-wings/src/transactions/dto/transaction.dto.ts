@@ -1,13 +1,18 @@
-import { IsDecimal, IsNumber, IsObject, ValidateNested } from "class-validator";
-import { UserDTO } from "src/users/dto/user.dto";
+import { Type } from "class-transformer";
+import { Allow, IsDecimal, IsNotEmpty, IsNumber, IsObject, Min, ValidateNested } from "class-validator";
+import { UserDto } from "src/users/dto/user.dto";
 
 export class TransactionDto{
-    @ValidateNested()
-    correspondent : UserDTO;
-    @ValidateNested()
-    recipient : UserDTO;
     
+    correspondent : UserDto;
+    @IsNotEmpty()
+    @ValidateNested()
+    @Type(() => UserDto)
+    recipient : UserDto;
+
+    @IsNotEmpty()
     @IsNumber()
+    @Min(0)
     amount : number;
 
 }

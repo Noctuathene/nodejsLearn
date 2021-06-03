@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Injectable, Param, Post, Query } from '@nestjs/common'
+import { BadRequestException, Body, Controller, Get, Injectable, Param, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common'
 import { User } from 'src/entites/user.entity'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UsersService } from './users.service'
@@ -10,6 +10,7 @@ export class UsersController {
         private userService: UsersService) { }
 
     @Post()
+    @UsePipes(new ValidationPipe({ transform: true }))
     async create(@Body() userDto: CreateUserDto) {
         var user = new User();
         user.username = userDto.username;
@@ -23,10 +24,9 @@ export class UsersController {
     }
 
     @Get()
+    @UsePipes(new ValidationPipe({ transform: true }))
     async get(@Query() query : QueryParams) {
-        throw new BadRequestException
-        const newQuery = new QueryParams(query.skip, query.take, query.searchString);
-        return await this.userService.findAll(newQuery.searchString, newQuery.take, newQuery.skip);
+        return await this.userService.findAll(query.searchString, query.take, query.skip);
     }
 }
 
