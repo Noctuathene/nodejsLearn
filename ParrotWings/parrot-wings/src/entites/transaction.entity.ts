@@ -10,4 +10,7 @@ export class Transaction extends BaseEntity {
     recipient: User;
     @Column( { type : "decimal"})
     amount: number;
+
+    @Column()
+    date : Date;
 }

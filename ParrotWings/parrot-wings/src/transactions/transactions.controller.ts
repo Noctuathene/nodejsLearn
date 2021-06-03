@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, UseGuards, UsePipes, ValidationPipe, Req } from "@nestjs/common";
+import { Controller, Get, Post, Body, UseGuards, UsePipes, ValidationPipe, Req, Query } from "@nestjs/common";
 import { TransactionsService } from "./transactions.service";
 import { TransactionDto } from "./dto/transaction.dto"
 import JwtAuthGuard from '../auth/jwt-auth.guard'
-import { request } from "http";
 import { UserDto } from "src/users/dto/user.dto";
+import { QueryParams } from "src/common/query-params";
 
 @Controller('transactions')
 export class TransactionsController {
@@ -18,5 +18,12 @@ export class TransactionsController {
         transactionDto.correspondent = new UserDto();
         transactionDto.correspondent.id = request.user.id;
         await this.transactionsService.create(transactionDto);
+    }
+
+    @Get()
+    @UseGuards(JwtAuthGuard)
+    async get(@Req() req, @Query() queryParams : QueryParams)
+    {
+        return await this.transactionsService.get(queryParams, req.user);
     }
 }

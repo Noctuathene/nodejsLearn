@@ -5,6 +5,7 @@ import { UserDto } from "src/users/dto/user.dto";
 export class TransactionDto{
     
     correspondent : UserDto;
+
     @IsNotEmpty()
     @ValidateNested()
     @Type(() => UserDto)
@@ -12,7 +13,7 @@ export class TransactionDto{
 
     @IsNotEmpty()
     @IsNumber()
-    @Min(0)
+    @Min(1)
     amount : number;
 
 }

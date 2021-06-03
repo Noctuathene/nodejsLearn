@@ -9,9 +9,7 @@ export class QueryParams {
         searchString;
     }
 
-    public set take(theTake : number){
-        if(theTake > 10) throw new Error(">10");
-        
+    public set take(theTake : number){       
         this._take = theTake > 10 ? 10 : theTake;
     }
 }
