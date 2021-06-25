@@ -12,8 +12,8 @@ import {
 import { TransactionsService } from './transactions.service';
 import { TransactionDto } from './dto/transaction.dto';
 import JwtAuthGuard from '../auth/jwt-auth.guard';
-import { UserDto } from 'src/users/dto/user.dto';
-import { QueryParams } from 'src/common/query-params';
+import { UserDto } from '../users/dto/user.dto';
+import { QueryParams } from '../common/query-params';
 
 @Controller('transactions')
 export class TransactionsController {
