@@ -4,7 +4,7 @@ import { Repository, getManager, Like } from 'typeorm';
 import { Transaction } from '../entites/transaction.entity';
 import { TransactionDto } from './dto/transaction.dto';
 import { User } from '../entites/user.entity';
-import { QueryParams } from 'src/common/query-params';
+import { QueryParams } from '../common/query-params';
 
 @Injectable()
 export class TransactionsService {

@@ -10,7 +10,18 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'debian-sys-maint',
+      password: 'vd25ifAtt2xAijL1',
+      database: 'pw',
+      entities: [],
+      synchronize: true,
+      autoLoadEntities: true,
+    }),
+
     UsersModule,
     TransactionsModule,
     AuthModule,

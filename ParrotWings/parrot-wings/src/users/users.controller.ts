@@ -10,7 +10,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { User } from 'src/entites/user.entity';
+import { User } from '../entites/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { QueryParams } from './../common/query-params';
