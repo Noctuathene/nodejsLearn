@@ -4,6 +4,8 @@ import { Like, Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
 import { Transaction } from '../entity/transaction.entity'
 import { hash } from 'bcrypt';
+import { UserSeed  } from 'src/seeds/users.seed';
+import { throwStatement } from '@babel/types';
 
 @Injectable()
 export class UsersService {
@@ -55,5 +57,11 @@ export class UsersService {
     return await this.usersRepository.findOne(id, {
       select: ['id', 'username'],
     });
+  }
+  async seedUsers() {
+    for (const user of UserSeed) {
+      if(!await this.usersRepository.findOne(user))
+        await this. usersRepository.save(user)  
+   }
   }
 }

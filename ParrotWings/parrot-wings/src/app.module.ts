@@ -18,7 +18,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       password: 'vd25ifAtt2xAijL1',
       database: 'pw',
       entities: [],
-      synchronize: true,
       autoLoadEntities: true,
     }),
 
