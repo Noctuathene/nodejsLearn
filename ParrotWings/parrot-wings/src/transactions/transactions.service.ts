@@ -41,6 +41,7 @@ export class TransactionsService {
       const transaction = await this.transactionRepository.create(
         transactionDto,
       );
+      transaction.date = new Date();
       await transactionalEntityManager.save(transaction);
       await transactionalEntityManager.decrement(
         User,
@@ -62,23 +63,27 @@ export class TransactionsService {
       relations: ['correspondent', 'recipient'],
       where: [{ correspondent: Like(user.id) }, { recipient: Like(user.id) }],
       order: {
-        date: 'DESC',
+        date: 'ASC',
       },
     });
 
     const findedUser = await this.userRepository.findOne(user.id);
-    let balance = Number(findedUser.amount);
+    let balance = 0;
     let username: string;
     const result = transactions[0].map((tr) => {
       const amount = Number(tr.amount);
+      let operation;
       if (tr.correspondent.id === findedUser.id) {
+        operation = "-";
         balance -= amount;
         username = tr.recipient.username;
       } else {
+        operation = "+"
         balance += amount;
         username = tr.correspondent.username;
       }
       return {
+        operation : operation,
         balance: balance,
         username: username,
         amount: tr.amount,

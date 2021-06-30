@@ -8,7 +8,7 @@ import {
   Min,
   ValidateNested,
 } from 'class-validator';
-import { UserDto } from 'src/users/dto/user.dto';
+import { UserDto } from '../../users/dto/user.dto'
 
 export class TransactionDto {
   correspondent: UserDto;
