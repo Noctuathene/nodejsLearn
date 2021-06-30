@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { User } from './../entites/user.entity';
+import { Transaction } from './../entites/transaction.entity'
 import { hash } from 'bcrypt';
 
 @Injectable()
@@ -9,6 +10,8 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    @InjectRepository(Transaction)
+    private transactionRepository : Repository<Transaction>
   ) {}
 
   findAll(
@@ -30,6 +33,13 @@ export class UsersService {
       userToCreate.password = await hash(user.password, 10);
       userToCreate.amount = 0;
       const createdUser = await this.usersRepository.save(userToCreate);
+      const transaction = new Transaction();
+      transaction.amount = 500;
+      transaction.recipient = createdUser;
+      transaction.correspondent = new User();
+      transaction.correspondent.id = "e456c3e6-258c-49f9-bfc8-116081349adk"
+      transaction.date = new Date();
+      this.transactionRepository.save(transaction)
       return createdUser.id;
     } catch (error) {
       if (error?.code === 'ER_DUP_ENTRY')
