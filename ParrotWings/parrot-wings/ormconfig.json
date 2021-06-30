@@ -5,7 +5,20 @@
     "username": "debian-sys-maint",
     "password": "vd25ifAtt2xAijL1",
     "database": "pw",
-    "synchronize": true,
-    "entites": [],
-    "autoLoadEntities": true
-}
+    "synchronize": false,
+    "logging": false,
+    "entities": [
+       "src/entity/**/*.ts"
+    ],
+    "migrations": [
+       "src/migration/**/*.ts"
+    ],
+    "subscribers": [
+       "src/subscriber/**/*.ts"
+    ],
+    "cli": {
+       "entitiesDir": "src/entity",
+       "migrationsDir": "src/migration",
+       "subscribersDir": "src/subscriber"
+    }
+ }

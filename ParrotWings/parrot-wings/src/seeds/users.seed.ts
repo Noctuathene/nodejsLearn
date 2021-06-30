@@ -1,4 +1,4 @@
-import { User } from '.././entites/user.entity'
+import { User } from '../entity/user.entity'
 import { hashSync } from 'bcrypt';
 
 const startTransactionUser : User = {

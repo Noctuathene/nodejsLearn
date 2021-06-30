@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getManager, Like } from 'typeorm';
-import { Transaction } from '../entites/transaction.entity';
+import { Transaction } from '../entity/transaction.entity';
 import { TransactionDto } from './dto/transaction.dto';
-import { User } from '../entites/user.entity';
+import { User } from '../entity/user.entity';
 import { QueryParams } from '../common/query-params';
 
 @Injectable()

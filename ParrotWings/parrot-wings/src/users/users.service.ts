@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
-import { User } from './../entites/user.entity';
-import { Transaction } from './../entites/transaction.entity'
+import { User } from '../entity/user.entity';
+import { Transaction } from '../entity/transaction.entity'
 import { hash } from 'bcrypt';
 
 @Injectable()
