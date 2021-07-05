@@ -14,12 +14,14 @@ import { User } from '../entity/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { QueryParams } from './../common/query-params';
+import { ApiBody, ApiQuery } from '@nestjs/swagger';
 
 @Controller('users')
 export class UsersController {
   constructor(private userService: UsersService) {}
 
   @Post()
+  @ApiBody({ type: CreateUserDto })
   @UsePipes(new ValidationPipe({ transform: true }))
   async create(@Body() userDto: CreateUserDto) {
     const user = new User();
@@ -34,6 +36,7 @@ export class UsersController {
   }
 
   @Get()
+  @ApiQuery({ type : QueryParams})
   @UsePipes(new ValidationPipe({ transform: true }))
   async get(@Query() query: QueryParams) {
     return await this.userService.findAll(
